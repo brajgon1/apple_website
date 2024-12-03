@@ -15,19 +15,19 @@ const VideoCarousel = () => {
     isPlaying: false,
   });
 
-  const [loadedData, setLoadedData] = useState([])
+  const [loadedData, setLoadedData] = useState([]);
 
   const { isEnd, startPlay, videoId, isLastVideo, isPlaying } = video;
 
   useEffect(() => {
     if (loadedData.length > 3) {
-        if(!isPlaying) {
-            videoRef.current[videoId].pause();
-        } else {
-            startPlay && videoRef.current[videoId].play();
-        }
+      if (!isPlaying) {
+        videoRef.current[videoId].pause();
+      } else {
+        startPlay && videoRef.current[videoId].play();
+      }
     }
-  }, [startPlay, videoId, isPlaying, loadedData])
+  }, [startPlay, videoId, isPlaying, loadedData]);
 
   useEffect(() => {
     const currentProgress = 0;
@@ -36,13 +36,9 @@ const VideoCarousel = () => {
     if (span[videoId]) {
       // animate the progress of video
       let anim = gsap.to(span[videoId], {
-        onUpdate: () => {
+        onUpdate: () => {},
 
-        },
-
-        onComplete: () => {
-
-        },
+        onComplete: () => {},
       });
     }
   }, [videoId, startPlay]);
@@ -54,7 +50,19 @@ const VideoCarousel = () => {
           <div key={list.id} id="slider" className="sm:pr-20 pr-10">
             <div className="video-carousel_container">
               <div className="w-full h-full flex-center rounded-3xl overflow-hidden bg-black">
-                <video id="video" playsInline={true} preload="auto" muted ref={(el) => (videoRef.current[i] = el)}>
+                <video
+                  id="video"
+                  playsInline={true}
+                  preload="auto"
+                  muted
+                  ref={(el) => (videoRef.current[i] = el)}
+                  onPlay={() => {
+                    setVideo((prevVideo) => ({
+                      ...prevVideo,
+                      isPlaying: true
+                    }));
+                  }}
+                >
                   <source src={list.video} type="video/mp4" />
                 </video>
               </div>
