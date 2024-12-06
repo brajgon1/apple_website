@@ -47,6 +47,8 @@ const VideoCarousel = () => {
     }
   }, [startPlay, videoId, isPlaying, loadedData]);
 
+  const handleLoadedMetadata = (i, e) => setLoadedData((prevVideo) => [...prevVideo, e])
+
   useEffect(() => {
     const currentProgress = 0;
     let span = videoSpanRef.current;
@@ -112,6 +114,7 @@ const VideoCarousel = () => {
                       isPlaying: true,
                     }));
                   }}
+                  onLoadedMetadata={(e) => handleLoadedMetadata(i, e)}
                 >
                   <source src={list.video} type="video/mp4" />
                 </video>
