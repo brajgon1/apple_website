@@ -1,9 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { hightlightsSlides } from "../constants";
-
-import gsap from "gsap";
 import { pauseImg, playImg, replayImg } from "../utils";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 const VideoCarousel = () => {
   const videoRef = useRef([]);
   const videoSpanRef = useRef([]);
